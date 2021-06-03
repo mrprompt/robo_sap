@@ -1,9 +1,9 @@
 # ROBÔ PARA EXTRAÇÃO DE RELATÓRIOS SAP
 ###### Desenvolvido por Éder Almeida (eder.almeida@cgteletrosul.gov.br - eder.almeida@gmail.com)
 
-Robô para exportar para EXCEL o relatório FBL3N com printscreen tanto dos parâmetros quanto do resultado
+# Apresentação
+Este robô foi criado com o intuíto de extrarir, em formato xlsx. relatórios do ERP SAP via transção FBL3N, ao mesmo tempo em que faz screenshots do processo.
 
-Desenvolvido por Éder Almeida (eder.almeida@cgteletrosul.gov.br - eder.almeida@gmail.com)
 
 Versão 2
 data: 20210530
