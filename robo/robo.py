@@ -28,6 +28,7 @@ def executa_robo(informacoes_janela_abertura, session):
     session.findById("wnd[0]").iconify()
     session.findById("wnd[0]").maximize()
     session.findById("wnd[0]/tbar[0]/okcd").text = "FBL3N"
+    session.findById("wnd[0]/usr/chkX_PARK").selected = false
     session.findById("wnd[0]").sendVKey(0)
 
     # Laçõ de repetição, executado para cada conta da relação de contas conciliáveis
