@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import sys
 
 def janela_abertura():
     sg.theme('Light Blue 2')
@@ -34,7 +35,7 @@ def janela_abertura():
     while True:
         event, values = janela.read()
         if event in (sg.WIN_CLOSED, 'Exit'):
-            exit()
+            sys.exit()
         if event == '-EXECUTAR_ROBO-':
             if values['-DATA_RELATORIO-'] == '':
                 sg.popup('Favor inserir data da posição do relatório', title='Erro')
