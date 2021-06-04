@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import sys
 
 def janela_info_sessao_aberta(sistema, usuario):
     sg.theme('Light Blue 2')
@@ -16,7 +17,7 @@ def janela_info_sessao_aberta(sistema, usuario):
     while True:
         event, values = janela.read()
         if event in (sg.WIN_CLOSED, 'Exit'):
-            exit()
+            sys.exit()
         elif event == '-BOTAO_SIM-':
             janela.close()  
             return True

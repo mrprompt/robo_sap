@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from sap import conectar_sap as cs
+import sys 
 
 def janela_logon():
     sg.theme('Light Blue 2')
@@ -15,7 +16,7 @@ def janela_logon():
     while True:
         event, values = janela.read()
         if event in (sg.WIN_CLOSED, 'Exit'):
-            exit()
+            sys.exit()
         if event == '-CONECTAR-':
             if values['-NOME_CONEXAO-'] == '':
                 sg.popup('Favor inserir nome da conexão', title='Erro')
