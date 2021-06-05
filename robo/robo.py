@@ -66,9 +66,13 @@ def executa_robo(informacoes_janela_abertura, session):
 
         # Abrindo tela de informações
         session.findById("wnd[0]").sendVKey(35)
-        
+              
         # Esperando um segundo, para dar tempo da janela de informações aparecer antes de tirar o print
         time.sleep(1)
+
+        # Abaixando a tela de informação para não cobrir as informações geradas
+        pag.press('alt', 'm')
+        pag.press('down', presses=20)
 
         # Print resultado
         screenExecucao = pag.screenshot()
