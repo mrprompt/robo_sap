@@ -2,10 +2,6 @@ import win32gui
 import win32process
 import psutil
 
-###############################
-### Funções
-###############################
-
 # Função para verificar qual a janela ativa do windows
 def verifica_janela_ativa():
     w = win32gui
