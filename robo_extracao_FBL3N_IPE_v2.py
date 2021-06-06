@@ -1,11 +1,5 @@
 # --- ROBO PARA CONECTAR E EXECUTAR TRANSACOES NO SAP --- #
 
-# Versão 2
-#   Foi feita uma reimplementação, para facilitar a criação de novos robos
-#   
-#   Foi separado a parte do login, telas de interação com o usuário e a rotina propriamente dita. Ou seja, a biblioteca
-#       de login pode ser reaproveitada em qualquer robô SAP.#   
-#
 from janelas import janela_abertura as ja
 from sap import efetuar_logon as el
 from robo import robo as rb

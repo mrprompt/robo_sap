@@ -27,10 +27,6 @@ def janela_abertura():
     ]      
 
     janela = sg.Window('Robô para Extrair Relatórios FBL3N', layout, default_element_size=(40, 1), element_justification='right', grab_anywhere=False) 
-    
-    # Validação dos valores de entrada
-    # informacoes_validadas = False
-
 
     while True:
         event, values = janela.read()
