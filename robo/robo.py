@@ -39,6 +39,7 @@ def executa_robo(informacoes_janela_abertura, session):
         session.findById("wnd[0]/usr/ctxtSD_SAKNR-LOW").text = conta
         session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").text = "ESUL"
         session.findById("wnd[0]/usr/ctxtPA_STIDA").text = data_referencia
+        session.findById("wnd[0]/usr/chkX_PARK").selected = -1
         session.findById("wnd[0]/usr/ctxtPA_VARI").text = "/MD_CO_SECOG"
 
         # tirando print da parametrização
@@ -65,9 +66,14 @@ def executa_robo(informacoes_janela_abertura, session):
 
         # Abrindo tela de informações
         session.findById("wnd[0]").sendVKey(35)
-        
+              
         # Esperando um segundo, para dar tempo da janela de informações aparecer antes de tirar o print
         time.sleep(1)
+
+        # Abaixando a tela de informação para não cobrir as informações geradas
+        pag.press('alt')
+        pag.press('m')
+        pag.press('down', presses=40)
 
         # Print resultado
         screenExecucao = pag.screenshot()

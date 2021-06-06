@@ -1,3 +1,4 @@
+# Função que lê o arquivo indicado com a relação de contas, guardando-as em uma lista
 def obter_relacao_contas(caminho_arquivo_contas_conciliaveis):
     contas_conciliaveis = []
     #abrindo o arquivo txt com a relação de contas
@@ -8,5 +9,5 @@ def obter_relacao_contas(caminho_arquivo_contas_conciliaveis):
             contas_conciliaveis.append(linha.replace('\n', ''))
     #fecha o arquivo
     arquivo_contas.close()
-
+    
     return contas_conciliaveis

@@ -72,9 +72,9 @@ def verifica_usario_sap_aberto():
                                     [l, strID, strUser, fCheck, objConnect, objSession]
                                     ]
                                 else:
-                                    informacoes_sap[i][0] = (informacoes_sap[i][0] + 1)
+                                    informacoes_sap[i - 1][0] = (informacoes_sap[i - 1][0] + 1)
                                     if fCheck == True:
-                                        informacoes_sap[i][3] = fCheck
+                                        informacoes_sap[i - 1][3] = fCheck
 
             l = 0
             fCheck = False
