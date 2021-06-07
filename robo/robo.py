@@ -2,6 +2,7 @@ import time
 import pyautogui as pag
 from apoio import verifica_janelas as vj
 from apoio import obter_relacao_contas as orc
+from apoio import verifica_pasta as vp
 from janelas import janela_abertura as ja
 import os
 
@@ -33,8 +34,6 @@ def executa_robo(informacoes_janela_abertura, session):
     # Laçõ de repetição, executado para cada conta da relação de contas conciliáveis
     for conta in contas_conciliaveis:
 
-        print('Processo para a conta ' + conta + ' [INICIADO]')
-        
         # Insirindo as informações necessárias na tela de Parametros
         session.findById("wnd[0]/usr/ctxtSD_SAKNR-LOW").text = conta
         session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").text = "ESUL"
@@ -50,6 +49,12 @@ def executa_robo(informacoes_janela_abertura, session):
 
         # Verificando se a execução não teve dados exibidos. Se não houver dados, volta ao inicio do laço
         if session.findById('wnd[0]/sbar').text == 'Nenhuma partida selecionada (ver texto descritivo)':
+            # Print resultado
+            screenExecucao = pag.screenshot()
+            vp.verifica_pasta(caminho_pasta_relatorios + "/"  + conta + "/")
+            # Salvando os prints tirados
+            screenParametrizacao.save(caminho_pasta_relatorios + "/"  + conta + "/" + mes_referencia + conta + ' 01 parametrizacao.jpg')
+            screenExecucao.save(caminho_pasta_relatorios + "/" + conta + "/" + mes_referencia + conta + ' 02 resultados.png')
             continue
 
         # Capturando informações do razão gerado
@@ -103,15 +108,9 @@ def executa_robo(informacoes_janela_abertura, session):
         # Esvazia a variável, para que no próximo laço ele volte a rodar a detecção
         janela_ativa = ''
 
-        print('Exportacao concluida')
-        print('Salvando os printscreens')
-
         # Salvando os prints tirados
         screenParametrizacao.save(caminho_pasta_relatorios + "/"  + conta + "/" + mes_referencia + conta + ' 01 parametrizacao.jpg')
         screenExecucao.save(caminho_pasta_relatorios + "/" + conta + "/" + mes_referencia + conta + ' 02 resultados.png')
-        
-        # Informa que o processo encerrou para a conta ativa
-        print('Processo para a conta ' + conta + ' [FINALIZADO]')
         
         # Volta para a tela de parâmetros
         session.findById("wnd[0]").sendVKey(15)
