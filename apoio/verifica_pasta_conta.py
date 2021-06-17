@@ -6,9 +6,9 @@ def verifica_pasta_conta(caminho_pasta, conta):
     criar_pasta = True
 
     for pasta in pastas:
-        if pasta[0:9] == conta:
+        if str(pasta[0:10]) == str(conta):
             criar_pasta = False
-            pasta_a_utilizar = pasta
+            pasta_a_utilizar = (caminho_pasta + '/' + pasta)
             break
             
     if criar_pasta:

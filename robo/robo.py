@@ -56,8 +56,8 @@ def executa_robo(informacoes_janela_abertura, session):
             pasta_para_salvar_os_arquivos = vpc.verifica_pasta_conta(caminho_pasta_relatorios, conta)
             # Salvando os prints tirados
             vpe.verifica_pasta_existe(pasta_para_salvar_os_arquivos + '/prints')
-            screenParametrizacao.save(pasta_para_salvar_os_arquivos + '/prints/' + mes_referencia + conta + ' 01 parametrizacao.jpg')
-            screenExecucao.save(pasta_para_salvar_os_arquivos + '/prints' + mes_referencia + conta + ' 02 resultados.png')
+            screenParametrizacao.save(pasta_para_salvar_os_arquivos + '/prints/' + mes_referencia + ' ' + conta + ' 01 parametrizacao.jpg')
+            screenExecucao.save(pasta_para_salvar_os_arquivos + '/prints/' + mes_referencia + ' ' + conta + ' 02 resultados.png')
             continue
 
         # Capturando informações do razão gerado
@@ -113,8 +113,9 @@ def executa_robo(informacoes_janela_abertura, session):
         janela_ativa = ''
 
         # Salvando os prints tirados
-        screenParametrizacao.save(pasta_para_salvar_os_arquivos + '/' + mes_referencia + conta + ' 01 parametrizacao.jpg')
-        screenExecucao.save(pasta_para_salvar_os_arquivos + '/' + mes_referencia + conta + ' 02 resultados.png')
+        vpe.verifica_pasta_existe(pasta_para_salvar_os_arquivos + '/prints')
+        screenParametrizacao.save(pasta_para_salvar_os_arquivos + '/prints/' + mes_referencia + ' ' + conta + ' 01 parametrizacao.jpg')
+        screenExecucao.save(pasta_para_salvar_os_arquivos + '/prints/' + mes_referencia + ' ' + conta + ' 02 resultados.png')
         
         # Volta para a tela de parâmetros
         session.findById('wnd[0]').sendVKey(15)
