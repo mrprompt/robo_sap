@@ -38,7 +38,7 @@ def executa_robo(informacoes_janela_abertura, session):
         session.findById("wnd[0]/usr/ctxtSD_SAKNR-LOW").text = conta
         session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").text = "ESUL"
         session.findById("wnd[0]/usr/ctxtPA_STIDA").text = data_referencia
-        session.findById("wnd[0]/usr/chkX_PARK").selected = -1
+        session.findById("wnd[0]/usr/chkX_PARK").selected = False
         session.findById("wnd[0]/usr/ctxtPA_VARI").text = "/MD_CO_SECOG"
 
         # tirando print da parametrização
@@ -50,6 +50,7 @@ def executa_robo(informacoes_janela_abertura, session):
         # Verificando se a execução não teve dados exibidos. Se não houver dados, volta ao inicio do laço
         if session.findById('wnd[0]/sbar').text == 'Nenhuma partida selecionada (ver texto descritivo)':
             # Print resultado
+            time.sleep(1)
             screenExecucao = pag.screenshot()
             vp.verifica_pasta(caminho_pasta_relatorios + "/"  + conta + "/")
             # Salvando os prints tirados
