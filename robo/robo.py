@@ -2,7 +2,7 @@ import time
 import pyautogui as pag
 from apoio import verifica_janelas as vj
 from apoio import obter_relacao_contas as orc
-from apoio import verifica_pasta as vp
+from apoio import verifica_pasta_conta as vp
 from janelas import janela_abertura as ja
 import os
 
@@ -52,10 +52,10 @@ def executa_robo(informacoes_janela_abertura, session):
             # Print resultado
             time.sleep(1)
             screenExecucao = pag.screenshot()
-            vp.verifica_pasta(caminho_pasta_relatorios + "/"  + conta + "/")
-            # Salvando os prints tirados
-            screenParametrizacao.save(caminho_pasta_relatorios + "/"  + conta + "/" + mes_referencia + conta + ' 01 parametrizacao.jpg')
-            screenExecucao.save(caminho_pasta_relatorios + "/" + conta + "/" + mes_referencia + conta + ' 02 resultados.png')
+            pasta_para_salvar_os_arquivos = vp.verifica_pasta_conta(caminho_pasta_relatorios, conta)
+              # Salvando os prints tirados
+            screenParametrizacao.save(pasta_para_salvar_os_arquivos + "/" + mes_referencia + conta + ' 01 parametrizacao.jpg')
+            screenExecucao.save(pasta_para_salvar_os_arquivos + "/" + mes_referencia + conta + ' 02 resultados.png')
             continue
 
         # Capturando informações do razão gerado
@@ -88,9 +88,10 @@ def executa_robo(informacoes_janela_abertura, session):
         session.findById("wnd[0]").sendVKey(0)
 
         #Exportanto para Excel
+        pasta_para_salvar_os_arquivos = vp.verifica_pasta_conta(caminho_pasta_relatorios, conta)
         session.findById("wnd[0]/mbar/menu[0]/menu[3]/menu[1]").select()
         session.findById("wnd[0]").sendVKey(0)
-        session.findById("wnd[1]/usr/ctxtDY_PATH").text = caminho_pasta_relatorios + "/" + conta + "/"
+        session.findById("wnd[1]/usr/ctxtDY_PATH").text = pasta_para_salvar_os_arquivos + "/"
         session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = mes_referencia + ' ' + conta + '.xlsx'
         session.findById("wnd[1]").sendVKey(0)
 
@@ -110,8 +111,8 @@ def executa_robo(informacoes_janela_abertura, session):
         janela_ativa = ''
 
         # Salvando os prints tirados
-        screenParametrizacao.save(caminho_pasta_relatorios + "/"  + conta + "/" + mes_referencia + conta + ' 01 parametrizacao.jpg')
-        screenExecucao.save(caminho_pasta_relatorios + "/" + conta + "/" + mes_referencia + conta + ' 02 resultados.png')
+        screenParametrizacao.save(pasta_para_salvar_os_arquivos + "/" + mes_referencia + conta + ' 01 parametrizacao.jpg')
+        screenExecucao.save(pasta_para_salvar_os_arquivos + "/" + mes_referencia + conta + ' 02 resultados.png')
         
         # Volta para a tela de parâmetros
         session.findById("wnd[0]").sendVKey(15)
