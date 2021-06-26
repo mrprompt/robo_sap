@@ -1,27 +1,35 @@
 import time
 import pyautogui as pag
+import PySimpleGUI as sg
 from apoio import verifica_janelas as vj
 from apoio import obter_relacao_contas as orc
 from apoio import verifica_pasta_existe as vpe
 from apoio import verifica_pasta_conta as vpc
-from janelas import janela_abertura as ja
+from janelas import janela_fbl3n_pa as ja
+from sap import efetuar_logon as el
 import os
 
 
-def executa_robo(informacoes_janela_abertura, session):
+def executa_robo():
+    # Chama a janela do robo
+    informacoes_janela_fbl3n_pa = ja.janela_fbl3n_pa()
+
+    # Conectar ao SAP (seja por logon ou usando uma sessão já aberta)
+    session = el.efetuar_logon()
+
     # Atribuindo valores as variáveis conforme informações inseridas pelo usuário
 
     # DATA REFERENCIA - data para a posição do relatório
-    data_referencia = informacoes_janela_abertura[0]
+    data_referencia = informacoes_janela_fbl3n_pa[0]
 
     # MES REFERENCIA - AAAAMM para inserir no inicio do nome do relatório exportado e no nome do screenshot
-    mes_referencia = (informacoes_janela_abertura[0][4:] + informacoes_janela_abertura[0][2:4])
+    mes_referencia = (informacoes_janela_fbl3n_pa[0][4:] + informacoes_janela_fbl3n_pa[0][2:4])
 
     # CAMINHA_ARQUIVO_CONTAS_CONCILIAVEIS - indica o path e o caminho para obter a relação de contas conciliáveis
-    caminho_arquivo_contas_conciliaveis = informacoes_janela_abertura[1]
+    caminho_arquivo_contas_conciliaveis = informacoes_janela_fbl3n_pa[1]
 
     # CAMINHA_PASTA_RELATORIOS - indica o path onde serão salvos os relatórios
-    caminho_pasta_relatorios = informacoes_janela_abertura[2]
+    caminho_pasta_relatorios = informacoes_janela_fbl3n_pa[2]
 
     # --- Obtendo contas conciliáveis --- #
     contas_conciliaveis = orc.obter_relacao_contas(caminho_arquivo_contas_conciliaveis)
@@ -119,3 +127,6 @@ def executa_robo(informacoes_janela_abertura, session):
         
         # Volta para a tela de parâmetros
         session.findById('wnd[0]').sendVKey(15)
+    
+    # encerrar robo
+    sg.popup('Execução efetuada com sucesso')
