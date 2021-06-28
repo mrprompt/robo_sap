@@ -1,23 +1,18 @@
-import time
+import os
 import pyautogui as pag
 import PySimpleGUI as sg
-from apoio import verifica_janelas as vj
+import time
 from apoio import obter_relacao_contas as orc
-from apoio import verifica_pasta_existe as vpe
+from apoio import verifica_janelas as vj
 from apoio import verifica_pasta_conta as vpc
+from apoio import verifica_pasta_existe as vpe
 from janelas import janela_fbl3n_pa as ja
 from sap import efetuar_logon as el
-import os
 
 
 def executa_robo():
     # Chama a janela do robo
     informacoes_janela_fbl3n_pa = ja.janela_fbl3n_pa()
-
-    # Conectar ao SAP (seja por logon ou usando uma sessão já aberta)
-    session = el.efetuar_logon()
-
-    # Atribuindo valores as variáveis conforme informações inseridas pelo usuário
 
     # DATA REFERENCIA - data para a posição do relatório
     data_referencia = informacoes_janela_fbl3n_pa[0]
@@ -34,13 +29,16 @@ def executa_robo():
     # --- Obtendo contas conciliáveis --- #
     contas_conciliaveis = orc.obter_relacao_contas(caminho_arquivo_contas_conciliaveis)
 
+    # Conectar ao SAP (seja por logon ou usando uma sessão já aberta)
+    session = el.efetuar_logon()
+
     # Abrindo a transação FBL3N
     session.findById('wnd[0]').iconify()
     session.findById('wnd[0]').maximize()
     session.findById('wnd[0]/tbar[0]/okcd').text = 'FBL3N'
     session.findById('wnd[0]').sendVKey(0)
 
-    # Laçõ de repetição, executado para cada conta da relação de contas conciliáveis
+    # Laço de repetição, executado para cada conta da relação de contas conciliáveis
     for conta in contas_conciliaveis:
 
         # Insirindo as informações necessárias na tela de Parametros
@@ -69,7 +67,7 @@ def executa_robo():
             continue
 
         # Capturando informações do razão gerado
-        # gerando visão totalizada
+        # gerando visão totalizada por conta razão
         session.findById('wnd[0]/mbar/menu[1]/menu[10]').select()
         session.findById('wnd[1]/usr/tblSAPLSKBHTC_WRITE_LIST_820').getAbsoluteRow(0).selected = -1
         session.findById('wnd[1]/usr/btnB_SEARCH').press()
@@ -94,7 +92,7 @@ def executa_robo():
         # Print resultado
         screenExecucao = pag.screenshot()
         
-        # Fecha a janela
+        # Fecha a janela de informações
         session.findById('wnd[0]').sendVKey(0)
 
         #Exportanto para Excel
