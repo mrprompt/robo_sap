@@ -11,8 +11,11 @@ from sap import efetuar_logon as el
 
 
 def executa_robo():
-    # Chama a janela do robo
+    # Chama a janela de interação do robô
     informacoes_janela_fbl3n_pa = ja.janela_fbl3n_pa()
+    
+    # Conectar ao SAP (seja por logon ou usando uma sessão já aberta)
+    session = el.efetuar_logon()
 
     # DATA REFERENCIA - data para a posição do relatório
     data_referencia = informacoes_janela_fbl3n_pa[0]
@@ -28,9 +31,6 @@ def executa_robo():
 
     # --- Obtendo contas conciliáveis --- #
     contas_conciliaveis = orc.obter_relacao_contas(caminho_arquivo_contas_conciliaveis)
-
-    # Conectar ao SAP (seja por logon ou usando uma sessão já aberta)
-    session = el.efetuar_logon()
 
     # Abrindo a transação FBL3N
     session.findById('wnd[0]').iconify()
