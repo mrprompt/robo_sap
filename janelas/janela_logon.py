@@ -3,12 +3,12 @@ from sap import conectar_sap as cs
 import sys 
 
 def janela_logon():
-    sg.theme('Light Blue 2')
+    sg.theme('DarkGrey14')
     layout = [
-        [sg.Text('Nome da Conexão', size=(15,1)), sg.InputText('', key='-NOME_CONEXAO-')],
-        [sg.Text('Usuário SAP', size=(15,1)), sg.InputText('', key='-USUARIO_SAP-')],
-        [sg.Text('Senha', size=(15,1)), sg.InputText('', key='-SENHA-', password_char='*')],
-        [sg.Button('Conectar', key='-CONECTAR-')]
+        [sg.Text('Nome da Conexão', size=(15,1)), sg.InputText('', background_color='grey', key='-NOME_CONEXAO-')],
+        [sg.Text('Usuário SAP', size=(15,1)), sg.InputText('', background_color='grey', key='-USUARIO_SAP-')],
+        [sg.Text('Senha', size=(15,1)), sg.InputText('', background_color='grey', key='-SENHA-', password_char='*')],
+        [sg.Button('Conectar', button_color='black on white', key='-CONECTAR-')]
     ]
 
     janela = sg.Window('Logon no SAP', layout)

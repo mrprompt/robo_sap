@@ -9,6 +9,7 @@ from apoio import verifica_pasta_existe as vpe
 from janelas import janela_fbl3n_pa as ja
 from sap import efetuar_logon as el
 
+sg.theme('DarkGrey14')
 
 def executa_robo():
     # Chama a janela de interação do robô
