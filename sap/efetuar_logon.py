@@ -11,7 +11,7 @@ def efetuar_logon():
     # Verifica se o SAP está no caminho padrão
     vSap = vusa.verifica_usario_sap_aberto()
 
-    # 'vSap é uma variante que na linha anterior recebeu valores da função GetSapUserOpen, 
+    # 'vSap é uma variante que na linha anterior recebeu valores da função verifica_usario_sap_aberto, 
     # quando não existe nenhuma instancia Sap aberta. Essa função retorna Empty, ou seja
     #  nada, na linha abaixo testo se a função não retornou nada é porque existe conexões abertas.
     if vSap != '':
