@@ -12,8 +12,7 @@ def efetuar_logon():
     vSap = vusa.verifica_usario_sap_aberto()
 
     # 'vSap é uma variante que na linha anterior recebeu valores da função verifica_usario_sap_aberto, 
-    # quando não existe nenhuma instancia Sap aberta. Essa função retorna Empty, ou seja
-    #  nada, na linha abaixo testo se a função não retornou nada é porque existe conexões abertas.
+    # quando não existe nenhuma instancia Sap aberta. Essa função retorna Empty se não existir conexões abertas
     if vSap != '':
 
         # Pergunta se o usuário quer utilizar a Instância já aberta
