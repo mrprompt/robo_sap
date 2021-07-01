@@ -7,8 +7,6 @@ import os
 
 def inicializacao():
 
-    pasta = os.getcwd()
-
     sg.theme('DarkGrey14')
 
     coluna_esquerda = [[sg.Text('Coleção de Robôs para Geração de IPEs', size=(20,2), justification='center', font=("Helvetica", 25))],
