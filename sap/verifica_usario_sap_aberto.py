@@ -11,7 +11,6 @@ def verifica_usario_sap_aberto():
     l = 0
     objSAP = ''
     informacoes_sap = []
-    GetSapUserOpen = ''
 
     ###############################
     ### Logon
