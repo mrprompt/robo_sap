@@ -31,7 +31,7 @@ class SapGui(object):
         sessao_sap_aberta = self.verifica_sessao_sap_aberta()
 
         if sessao_sap_aberta == '':
-            nova_sessao()
+            self.nova_sessao()
 
         else:
             #Se retornar um objeto SAP, verifica se o Usuário quer utilizar a sessão aberta ou abrir uma nova
