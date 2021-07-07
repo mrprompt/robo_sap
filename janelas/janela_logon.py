@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-from sap import conectar_sap as cs
 import sys 
 
 def janela_logon():
@@ -29,6 +28,6 @@ def janela_logon():
     
     janela.close()
 
-    session = cs.conectar_sap(values['-NOME_CONEXAO-'], values['-USUARIO_SAP-'], values['-SENHA-'])
+    informacoes_logon = (values['-NOME_CONEXAO-'], values['-USUARIO_SAP-'], values['-SENHA-'])
 
-    return session
+    return informacoes_logon

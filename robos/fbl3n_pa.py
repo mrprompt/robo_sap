@@ -7,7 +7,7 @@ from apoio import verifica_janelas as vj
 from apoio import verifica_pasta_conta as vpc
 from apoio import verifica_pasta_existe as vpe
 from janelas import janela_fbl3n_pa as ja
-from sap import efetuar_logon as el
+from sap import sapgui
 
 sg.theme('DarkGrey14')
 
@@ -16,7 +16,8 @@ def executa_robo():
     informacoes_janela_fbl3n_pa = ja.janela_fbl3n_pa()
     
     # Conectar ao SAP (seja por logon ou usando uma sessão já aberta)
-    session = el.efetuar_logon()
+    sap = sapgui.SapGui()
+    sap.logon()
 
     # DATA REFERENCIA - data para a posição do relatório
     data_referencia = informacoes_janela_fbl3n_pa[0]
@@ -34,29 +35,29 @@ def executa_robo():
     contas_conciliaveis = orc.obter_relacao_contas(caminho_arquivo_contas_conciliaveis)
 
     # Abrindo a transação FBL3N
-    session.findById('wnd[0]').iconify()
-    session.findById('wnd[0]').maximize()
-    session.findById('wnd[0]/tbar[0]/okcd').text = 'FBL3N'
-    session.findById('wnd[0]').sendVKey(0)
+    sap.session.findById('wnd[0]').iconify()
+    sap.session.findById('wnd[0]').maximize()
+    sap.session.findById('wnd[0]/tbar[0]/okcd').text = 'FBL3N'
+    sap.session.findById('wnd[0]').sendVKey(0)
 
     # Laço de repetição, executado para cada conta da relação de contas conciliáveis
     for conta in contas_conciliaveis:
 
         # Insirindo as informações necessárias na tela de Parametros
-        session.findById('wnd[0]/usr/ctxtSD_SAKNR-LOW').text = conta
-        session.findById('wnd[0]/usr/ctxtSD_BUKRS-LOW').text = 'ESUL'
-        session.findById('wnd[0]/usr/ctxtPA_STIDA').text = data_referencia
-        session.findById('wnd[0]/usr/chkX_PARK').selected = False
-        session.findById('wnd[0]/usr/ctxtPA_VARI').text = '/MD_CO_SECOG'
+        sap.session.findById('wnd[0]/usr/ctxtSD_SAKNR-LOW').text = conta
+        sap.session.findById('wnd[0]/usr/ctxtSD_BUKRS-LOW').text = 'ESUL'
+        sap.session.findById('wnd[0]/usr/ctxtPA_STIDA').text = data_referencia
+        sap.session.findById('wnd[0]/usr/chkX_PARK').selected = False
+        sap.session.findById('wnd[0]/usr/ctxtPA_VARI').text = '/MD_CO_SECOG'
 
         # tirando print da parametrização
         screenParametrizacao = pag.screenshot()
 
         # executa a geração do relatório
-        session.findById('wnd[0]').sendVKey(8)
+        sap.session.findById('wnd[0]').sendVKey(8)
 
         # Verificando se a execução não teve dados exibidos. Se não houver dados, volta ao inicio do laço
-        if session.findById('wnd[0]/sbar').text == 'Nenhuma partida selecionada (ver texto descritivo)':
+        if sap.session.findById('wnd[0]/sbar').text == 'Nenhuma partida selecionada (ver texto descritivo)':
             # Print resultado
             time.sleep(1)
             screenExecucao = pag.screenshot()
@@ -69,18 +70,18 @@ def executa_robo():
 
         # Capturando informações do razão gerado
         # gerando visão totalizada por conta razão
-        session.findById('wnd[0]/mbar/menu[1]/menu[10]').select()
-        session.findById('wnd[1]/usr/tblSAPLSKBHTC_WRITE_LIST_820').getAbsoluteRow(0).selected = -1
-        session.findById('wnd[1]/usr/btnB_SEARCH').press()
-        session.findById('wnd[2]/usr/txtGD_SEARCHSTR').text = 'Conta'
-        session.findById('wnd[1]/usr/btnAPP_WL_SING').press()
-        session.findById('wnd[1]/tbar[0]/btn[0]').press()
-        session.findById('wnd[0]/usr/lbl[5,8]').setFocus()
-        session.findById('wnd[0]/usr/lbl[5,8]').caretPosition = 7
-        session.findById('wnd[0]/tbar[1]/btn[31]').press()
+        sap.session.findById('wnd[0]/mbar/menu[1]/menu[10]').select()
+        sap.session.findById('wnd[1]/usr/tblSAPLSKBHTC_WRITE_LIST_820').getAbsoluteRow(0).selected = -1
+        sap.session.findById('wnd[1]/usr/btnB_SEARCH').press()
+        sap.session.findById('wnd[2]/usr/txtGD_SEARCHSTR').text = 'Conta'
+        sap.session.findById('wnd[1]/usr/btnAPP_WL_SING').press()
+        sap.session.findById('wnd[1]/tbar[0]/btn[0]').press()
+        sap.session.findById('wnd[0]/usr/lbl[5,8]').setFocus()
+        sap.session.findById('wnd[0]/usr/lbl[5,8]').caretPosition = 7
+        sap.session.findById('wnd[0]/tbar[1]/btn[31]').press()
 
         # Abrindo tela de informações
-        session.findById('wnd[0]').sendVKey(35)
+        sap.session.findById('wnd[0]').sendVKey(35)
               
         # Esperando um segundo, para dar tempo da janela de informações aparecer antes de tirar o print
         time.sleep(1)
@@ -94,15 +95,15 @@ def executa_robo():
         screenExecucao = pag.screenshot()
         
         # Fecha a janela de informações
-        session.findById('wnd[0]').sendVKey(0)
+        sap.session.findById('wnd[0]').sendVKey(0)
 
         #Exportanto para Excel
         pasta_para_salvar_os_arquivos = vpc.verifica_pasta_conta(caminho_pasta_relatorios, conta)
-        session.findById('wnd[0]/mbar/menu[0]/menu[3]/menu[1]').select()
-        session.findById('wnd[0]').sendVKey(0)
-        session.findById('wnd[1]/usr/ctxtDY_PATH').text = pasta_para_salvar_os_arquivos + '/relatorios'
-        session.findById('wnd[1]/usr/ctxtDY_FILENAME').text = mes_referencia + ' ' + conta + '.xlsx'
-        session.findById('wnd[1]').sendVKey(0)
+        sap.session.findById('wnd[0]/mbar/menu[0]/menu[3]/menu[1]').select()
+        sap.session.findById('wnd[0]').sendVKey(0)
+        sap.session.findById('wnd[1]/usr/ctxtDY_PATH').text = pasta_para_salvar_os_arquivos + '/relatorios'
+        sap.session.findById('wnd[1]/usr/ctxtDY_FILENAME').text = mes_referencia + ' ' + conta + '.xlsx'
+        sap.session.findById('wnd[1]').sendVKey(0)
 
         # mapeando a janela ativa. Quando detectar que é o Excel, mata o processo.
         janela_ativa = ''
@@ -125,7 +126,7 @@ def executa_robo():
         screenExecucao.save(pasta_para_salvar_os_arquivos + '/prints/' + mes_referencia + ' ' + conta + ' 02 resultados.png')
         
         # Volta para a tela de parâmetros
-        session.findById('wnd[0]').sendVKey(15)
+        sap.session.findById('wnd[0]').sendVKey(15)
     
     # encerrar robo
     sg.popup('Execução efetuada com sucesso')
