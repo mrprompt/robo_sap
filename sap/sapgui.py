@@ -109,7 +109,7 @@ class SapGui(object):
                                 break
         # Caso o usuário opte por iniciar uma nova instância, abre a tela de Login
         else:
-            nova_sessao()
+            self.nova_sessao()
     
 
     def captura_informacoes_sessao_sap_aberta(self, sessao_sap_aberta):
@@ -168,4 +168,3 @@ class SapGui(object):
             return ''
         else:
             return informacoes_sessao_sap_aberta
-    
