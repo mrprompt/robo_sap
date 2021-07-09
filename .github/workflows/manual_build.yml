@@ -1,10 +1,6 @@
 name: Manual workflow
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        description: 'Execuntando o Build manualmente'
-        required: true
 
 jobs:
 
