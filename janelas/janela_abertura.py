@@ -3,7 +3,6 @@ import PySimpleGUI as sg
 from imagens import imagens_base64 as imgs
 from robos import fbl3n_pa
 import sys
-import os
 
 def inicializacao():
 
