@@ -21,10 +21,6 @@ def janela_info_sessao_aberta(sistema, usuario):
         elif event == '-BOTAO_SIM-':
             janela.close()  
             return True
-            break
         elif event == '-BOTAO_NAO-':
             janela.close()   
             return False
-            break
-
-              
